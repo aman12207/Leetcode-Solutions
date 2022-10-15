@@ -23,13 +23,13 @@ public:
                 }
                 count = 1;
                 prev = ch;
+                if(i != n)
                 ans.push_back(ch);
             }
             else {              // keep counting
                 count++;
             }
         }
-        ans.pop_back();
         chars.clear();
         for(auto i : ans) {
             chars.push_back(i);
