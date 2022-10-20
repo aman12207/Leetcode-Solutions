@@ -5,18 +5,18 @@ public:
         for(auto i : s){            // storing freq
             m[i]++;
         }
-        vector<pair<char,int>> A(m.begin(),m.end());
-        auto comp = [&](pair<char,int> p1, pair<char,int> p2){      // comp function using stl cool right
-            return p1.second>p2.second;
-        };
-        sort(A.begin(),A.end(),comp);           // sorted
+        vector<string> bucket(s.size()+1, "");      
+        //put character into frequency bucket
+        for(auto i : m){            // appended char with resp to their size in bucket
+            bucket[i.second].append(i.second,i.first);
+        }
         string ans = "";
-        for(auto i : A){            // formed ans string
-            for(int j = 0; j<i.second;j++){
-                ans += i.first;
+        //form descending sorted string
+        for(int i = s.size();i>0;i--){
+            if(bucket[i].size()>0){
+                ans += bucket[i];
             }
         }
-        
         return ans;
     }
 };
