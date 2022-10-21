@@ -1,22 +1,24 @@
 class Solution {
 public:
     int minimumOperations(vector<int>& nums) {
-        int n = nums.size();
-        vector<int>temp(n,0);
-        int count=0;
-        while(nums!=temp){
-            int val=INT_MAX;
-            for(auto i : nums){
-                if(i>0)
-                    val = min(val,i);
-            }
-            for(int i=0;i<nums.size();i++){
-                if(nums[i]!=0){
-                    nums[i]-=val;
-                }
-            }
-            count++;
+        int n = nums.size(), ans = 0;
+        if(n == 1){
+            if(nums[0]) return 1;
+            return 0;
         }
-        return count;
+        sort(nums.begin(),nums.end());
+        for(int i =0;i<n;i++){
+            int element = nums[i];
+            if(element != 0){
+                for(int j = i;j<n;j++){
+                    if(nums[j]){
+                        nums[j] = nums[j] - element;
+                    }
+                }
+                sort(nums.begin(),nums.end());      // sorting to make sure smallest element is deleted first
+                ans++;
+            }
+        }
+        return ans;
     }
 };
