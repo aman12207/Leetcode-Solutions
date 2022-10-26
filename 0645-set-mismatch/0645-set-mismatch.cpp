@@ -8,7 +8,7 @@ public:
         for(int i = 1;i<=n;i++){
             if(m[i] == 2) ans[0] = i;
             if(m[i] == 0) ans[1] = i;
-            // if(ans[0] !=0  && ans[1] !=0 ) return ans;
+            if(ans[0] !=0  && ans[1] !=0 ) return ans;   // just optimisation 
         }
         return ans;
     }
