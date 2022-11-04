@@ -10,11 +10,10 @@ public:
         for(int i = 0;i<size;i++){      // traversing the string 
             sum += (s[i] - '0');
             if(sum >= target ){         // first index where prefix index >= target convert it to nearest mulitplle like it 435 and at index 1 sum >= target convert it to 500
-                if(sum == target && i == size-1) break;
-                for(int  j = i;j<size;j++){
+                for(int  j = i;j<size;j++){     // converting all the indexing from i to size to 0
                     s[j] = '0';
                 }
-                if(i != 0){
+                if(i != 0){     // and inc the index-1 by 1 which will convert the no
                     cout<<s[i-1]<<' ';
                     s[i-1]++;
                     cout<<s[i-1]<<' ';
@@ -23,7 +22,8 @@ public:
             }
         }
         cout<<s<<endl;
-        if(s[0] == '0') ans = 1;
+        if(s[0] == '0') ans = 1;        // it means the no at first index is greater than target
+        // like 432 and target is 3 the we have to convert it to 1000
         for(auto i : s){
             ans = ans*10 + (i-'0');
         }
