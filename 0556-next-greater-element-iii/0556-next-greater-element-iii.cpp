@@ -14,17 +14,13 @@ public:
         for(int i = size-2;i>=0;i--){
             char temp = 'a';
             int idx = 0;
-            for(int j = i+1;j<size;j++){
+            for(int j = i+1;j<size;j++){            // find nearest greater to right for each element 
                 if(temp> s[j] && s[j] > s[i])   {
                     temp = s[j];
                     idx = j;
-                //     cout<<s[i]<<' '<<s[j]<<' '<<temp<<endl;
                 }
-                // if(i == 1){
-                //     cout<<s[i]<<' '<<s[j]<<' '<<temp<<endl;
-                // }
             }
-            if(temp != 'a'){
+            if(temp != 'a'){                // if exist the swap the element with min element and sort the remianing string 
                 int x = s[i];
                 s[i] = s[idx];
                 s[idx] = x;
@@ -32,6 +28,6 @@ public:
                 break;
             }
         }
-        return stol(s) <=INT_MAX ? stol(s) : -1;
+        return stol(s) <=INT_MAX ? stol(s) : -1;        // if no is out of range return -1
     }
 };
