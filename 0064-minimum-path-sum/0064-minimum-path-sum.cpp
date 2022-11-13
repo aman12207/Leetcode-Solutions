@@ -1,19 +1,20 @@
 class Solution {
 public:
-        int solve(vector<vector<int>>& grid,int x, int y,vector<vector<int>> &dp){      // actually we are doing the opp we are trying to reach 0 0  from m-1, n-1
-        if(x== 0 && y == 0){                // found ans 
-            return grid[0][0];
-        }
-        if(x<0 || y<0)         // base cases
-            return INT_MAX;
-        if(dp[x][y] != -1) return dp[x][y];
-        int top = solve(grid,x-1,y,dp) ;
-        int left = solve(grid,x,y-1,dp);        // calls
-        return dp[x][y] = min(top, left) + grid[x][y];
-    }
     int minPathSum(vector<vector<int>>& grid) {
         int m = grid.size(), n = grid[0].size();
-        vector<vector<int>> dp(m,vector<int>(n,-1));
-        return solve(grid,m-1,n-1,dp);
+        vector<vector<int>> dp(m,vector<int>(n,0));
+        for(int i = 0;i<m;i++){
+            for(int j = 0;j<n;j++){
+                if(i == 0 && j == 0) {
+                    dp[0][0] = grid[0][0];
+                    continue;
+                }
+                int top = INT_MAX, left = INT_MAX;
+                if(i>0) top = dp[i-1][j];
+                if(j>0) left = dp[i][j-1];
+                dp[i][j] = min(top , left) + grid[i][j];
+            }
+        }
+        return dp[m-1][n-1];
     }
 };
