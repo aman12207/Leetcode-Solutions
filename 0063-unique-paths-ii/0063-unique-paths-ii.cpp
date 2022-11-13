@@ -1,21 +1,24 @@
 class Solution {
 public:
-    int solve(vector<vector<int>>& obstacleGrid,int x, int y,vector<vector<int>> &dp){      // actually we are doing the opp we are trying to reach 0 0  from m-1, n-1
-        if(x<0 || y<0)         // base cases
-            return 0;
-        if(obstacleGrid[x][y] == 1) return 0;       // if obstacle return 0
-        if(x== 0 && y == 0){                // found ans 
-            return 1;
-        }
-        if(dp[x][y] != -1) return dp[x][y];
-        int top = solve(obstacleGrid,x-1,y,dp);
-        int left = solve(obstacleGrid,x,y-1,dp);        // calls
-        return dp[x][y] = top + left;
-    }
     int uniquePathsWithObstacles(vector<vector<int>>& obstacleGrid) {
-        int n = obstacleGrid.size(), m = obstacleGrid[0].size();
-        vector<vector<int>> dp(n, vector<int>(m,-1));
-        return solve(obstacleGrid, n-1,m-1,dp);
-        
+        int m = obstacleGrid.size(), n = obstacleGrid[0].size();
+        vector<vector<int>> dp(m, vector<int>(n,0));
+        for(int i = 0;i<n;i++){             // marking base cases
+            if(obstacleGrid[0][i] == 1) break;
+            dp[0][i] = 1;
+        }
+        for(int i = 0;i<m;i++){
+            if(obstacleGrid[i][0] == 1) break;
+            dp[i][0] = 1;
+        }
+        for(int i = 1;i<m;i++){
+            for(int j = 1;j<n;j++){
+                if(obstacleGrid[i][j] == 1) continue;
+                int top = dp[i-1][j];
+                int left = dp[i][j-1];
+                dp[i][j] = top + left;
+            }
+        }
+        return dp[m-1][n-1];
     }
 };
