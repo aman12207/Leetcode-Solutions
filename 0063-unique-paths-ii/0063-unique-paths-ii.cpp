@@ -3,20 +3,20 @@ public:
     int uniquePathsWithObstacles(vector<vector<int>>& obstacleGrid) {
         int m = obstacleGrid.size(), n = obstacleGrid[0].size();
         vector<vector<int>> dp(m, vector<int>(n,0));
-        for(int i = 0;i<n;i++){             // marking base cases
-            if(obstacleGrid[0][i] == 1) break;
-            dp[0][i] = 1;
-        }
         for(int i = 0;i<m;i++){
-            if(obstacleGrid[i][0] == 1) break;
-            dp[i][0] = 1;
-        }
-        for(int i = 1;i<m;i++){
-            for(int j = 1;j<n;j++){
-                if(obstacleGrid[i][j] == 1) continue;
-                int top = dp[i-1][j];
-                int left = dp[i][j-1];
-                dp[i][j] = top + left;
+            for(int j = 0;j<n;j++){
+                if(obstacleGrid[i][j] == 1) {
+                    dp[i][j] = 0;
+                }         // if it is an obstacle mark it as 0 as there is no way to reach that block
+                // if grid is 0 1 0 0 as we are adding top and left 
+                // the dp will be 1 0 0 0 a
+                else if(i == 0 && j == 0) dp[i][j] = 1;
+                else {
+                    int top = 0, left = 0;
+                    if(i>0) top = dp[i-1][j];
+                    if(j>0 ) left = dp[i][j-1];
+                    dp[i][j] = top + left;
+                }
             }
         }
         return dp[m-1][n-1];
