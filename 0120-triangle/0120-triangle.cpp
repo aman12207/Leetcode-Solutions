@@ -1,20 +1,27 @@
 class Solution {
 public:
-    int solve(vector<vector<int>>& triangle, int i , int j , vector<vector<int>>&dp){
-        if(i == triangle.size()-1){     // there is no edge case as for every element bottom and bottom right node will be available except last row
-            return triangle[i][j];
-        }
-        if(dp[i][j] != -1) return dp[i][j];
-        int down  = solve(triangle,i+1,j,dp);
-        int downright  = solve(triangle,i+1,j+1,dp);
-        return dp[i][j] = min(down,downright) + triangle[i][j];
-    }
     int minimumTotal(vector<vector<int>>& triangle) {
         int m = triangle.size();
         vector<vector<int>> dp;
-        for(int i = 0;i<m;i++){
+        for(int i = 0;i<m;i++){         // creating dp array of same size as triangle
             dp.push_back(vector<int>(i+1, -1));
         }
-        return solve(triangle,0,0,dp);
+        for(int i = 0;i<m;i++){
+            for(int j = 0;j<=i;j++){
+                if(i == 0 && j == 0){           // handling base case
+                    dp[i][j] = triangle[0][0];
+                    continue;
+                }
+                int topLeft = INT_MAX, top = INT_MAX;
+                if(i>0 && j>0) topLeft = dp[i-1][j-1];          // we can choose from topleft and left
+                if(j != i) top = dp[i-1][j];
+                dp[i][j] = min(top,topLeft) + triangle[i][j];
+            }
+        }
+        int ans = INT_MAX;
+        for(auto i : dp[m-1]){          // any of the last row might be our answer so we have to check for all of them
+            ans = min(ans,i);
+        }
+        return ans;
     }
 };
