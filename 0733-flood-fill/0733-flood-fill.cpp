@@ -9,12 +9,12 @@ public:
         int n = image.size(), m = image[0].size();
         q.push({sr,sc});
         int initialColor = image[sr][sc];
-        if(initialColor == color) return image;
+        if(initialColor == color) return image;     // if initial color = final color no need to change the color
         image[sr][sc] = color;
         while(!q.empty()){
             int x = q.front().first, y = q.front().second;
             q.pop();
-            if(isValid(x+1,y,n,m) && image[x+1][y] == initialColor){
+            if(isValid(x+1,y,n,m) && image[x+1][y] == initialColor){            // all four possilbe neighbours
                 q.push({x+1,y});
                 image[x+1][y] = color;
             }
