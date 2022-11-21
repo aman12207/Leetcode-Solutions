@@ -14,7 +14,7 @@ public:
             int x = q.front().first, y = q.front().second;
             q.pop();                       // pop the initial element and search for all possible neighbours
             if(!(x == entrance[0] && y == entrance[1]) && (x == n-1 || y == m-1 || y == 0 || x == 0) ) {
-                cout<<"return ";
+                // if this is not entrance pos and it reached corner we found our ans;
                 return ans;
             }
             if(x == -1 && y == -1){
